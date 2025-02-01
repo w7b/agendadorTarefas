@@ -4,7 +4,6 @@ import com.smoothy.agendadorTarefas.Business.UsuarioService;
 import com.smoothy.agendadorTarefas.Business.dto.EnderecoDTO;
 import com.smoothy.agendadorTarefas.Business.dto.TelefoneDTO;
 import com.smoothy.agendadorTarefas.Business.dto.UsuarioDTO;
-import com.smoothy.agendadorTarefas.Infrastructure.Entity.Usuario;
 import com.smoothy.agendadorTarefas.Infrastructure.Security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,15 +37,31 @@ public class UsuarioController {
         return "Bearer " +jwtUtil.generateToken(authentication.getName());
     }
 
+    @PostMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> cadastraEndereco(@RequestBody EnderecoDTO dto,
+                                                        @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.cadastraEndereco(token, dto));
+    }
+
+    @PostMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> cadastraTelefone(@RequestBody TelefoneDTO dto,
+                                                        @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.cadastraTelefone(token, dto));
+    }
+
+
     @GetMapping
-    public ResponseEntity<Usuario> buscaUsuarioPorEmail(@RequestParam("email") String email){
+    public ResponseEntity<UsuarioDTO> buscaUsuarioPorEmail(@RequestParam("email") String email){
         return ResponseEntity.ok(usuarioService.buscaUsuarioPorEmail(email));
     }
+
+
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deletaUsuarioPorEmail(@PathVariable String email){
         usuarioService.deletaUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
     }
+
 
     @PutMapping
     public ResponseEntity<UsuarioDTO> attUser(@RequestBody UsuarioDTO dto,
