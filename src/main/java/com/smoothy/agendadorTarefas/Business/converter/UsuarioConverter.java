@@ -97,4 +97,24 @@ public class UsuarioConverter {
                 .build();
     }
 
+    public Endereco updateEndereco(EnderecoDTO dto, Endereco entity){
+        return Endereco.builder()
+                .id(entity.getId())
+                .rua(dto.getRua() != null ? dto.getRua() : entity.getRua())
+                .numero(dto.getNumero() != null ? dto.getNumero() : entity.getNumero())
+                .complemento(dto.getComplemento() != null ? dto.getComplemento() : entity.getComplemento())
+                .cidade(dto.getComplemento() != null ? dto.getComplemento() : entity.getComplemento())
+                .estado(dto.getEstado() != null ? dto.getEstado() : entity.getEstado())
+                .cep(dto.getCep() != null ? dto.getCep() : entity.getCep())
+                .build();
+    }
+
+    public Telefone updateTelefone(TelefoneDTO dto, Telefone entity){
+        return Telefone.builder()
+                .id(entity.getId())
+                .ddd(dto.getDdd() != null ? dto.getDdd() : entity.getDdd())
+                .numero(dto.getNumero() != null ? dto.getNumero() : entity.getNumero())
+                .build();
+    }
+
 }
