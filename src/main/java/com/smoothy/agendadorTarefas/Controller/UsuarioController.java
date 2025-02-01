@@ -1,6 +1,8 @@
 package com.smoothy.agendadorTarefas.Controller;
 
 import com.smoothy.agendadorTarefas.Business.UsuarioService;
+import com.smoothy.agendadorTarefas.Business.dto.EnderecoDTO;
+import com.smoothy.agendadorTarefas.Business.dto.TelefoneDTO;
 import com.smoothy.agendadorTarefas.Business.dto.UsuarioDTO;
 import com.smoothy.agendadorTarefas.Infrastructure.Entity.Usuario;
 import com.smoothy.agendadorTarefas.Infrastructure.Security.JwtUtil;
@@ -50,6 +52,18 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> attUser(@RequestBody UsuarioDTO dto,
                                               @RequestHeader("Authorization") String token) {
             return ResponseEntity.ok(usuarioService.atualizaUsuarios(token, dto));
+    }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> attEndereco(@RequestBody EnderecoDTO dto,
+                                                   @RequestParam("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> attTelefone(@RequestBody TelefoneDTO dto,
+                                                   @RequestParam("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
     }
 
 }
