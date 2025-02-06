@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: users
+    build: .
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db_usuario
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      - java-network
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: db_usuario
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - '5431:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - java-network
+    
+volumes:
+  pgdata:
+
+networks:
+  java-network:
+    driver: bridge

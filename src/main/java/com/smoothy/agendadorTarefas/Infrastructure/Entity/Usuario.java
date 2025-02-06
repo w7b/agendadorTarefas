@@ -17,6 +17,7 @@ import java.util.List;
 
 @Table(name = "usuario")
 public class Usuario implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +33,7 @@ public class Usuario implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Telefone> telefones;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
